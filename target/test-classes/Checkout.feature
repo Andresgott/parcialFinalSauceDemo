@@ -5,7 +5,7 @@ Feature: Checkout feature
     When I set the user name text box with "standard_user"
     And I set the password text box with "secret_sauce"
     And I click on the login button
-
+    @run
     Scenario: Checkout a purchase
       Given The home page should be displayed
       When I add to the cart the product "Sauce Labs Backpack"
@@ -16,7 +16,7 @@ Feature: Checkout feature
       And I click on continue button
       And I click on finish button
       Then A message that says "Thank you for your order!" should be displayed
-
+    @run
     Scenario: Checkout a purchase without a zipcode
       Given The home page should be displayed
       When I add to the cart the product "Sauce Labs Backpack"
@@ -24,6 +24,26 @@ Feature: Checkout feature
       And I click on the checkout button
       And I fill the checkout information without zipcode
         | Andres | Gottlieb |
+      And I click on continue button
+      Then A error message saying "Error: Postal Code is required"
+    @run
+    Scenario: Checkout a purchase without data
+      Given The home page should be displayed
+      When I add to the cart the product "Sauce Labs Backpack"
+      And I click on the cart button
+      And I click on the checkout button
+      And I fill the checkout information without zipcode
+        |  |  |  |
+      And I click on continue button
+      Then A error message saying "Error: Postal Code is required"
+    @run
+    Scenario: Checkout a purchase with incorrect data
+      Given The home page should be displayed
+      When I add to the cart the product "Sauce Labs Backpack"
+      And I click on the cart button
+      And I click on the checkout button
+      And I fill the checkout information without zipcode
+        | 81271 | 81921 | aaa |
       And I click on continue button
       Then A error message saying "Error: Postal Code is required"
 

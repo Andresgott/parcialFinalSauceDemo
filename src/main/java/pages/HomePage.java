@@ -59,6 +59,9 @@ public class HomePage {
     @FindBy(css = "#add-to-cart-sauce-labs-backpack")
     WebElement sauceLabBackButton;
 
+    @FindBy(xpath = "//*[@id=\"remove-sauce-labs-backpack\"]")
+    WebElement sauceLabBackRemove;
+
     public HomePage(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -213,12 +216,7 @@ public class HomePage {
 
     public boolean addToCartTextCheck()
     {
-        String text=sauceLabBackButton.getText();
-        if (text.equals("Remove"))
-        {
-            return true;
-        }
-        return false;
+        return sauceLabBackButton.isDisplayed();
     }
 
 
